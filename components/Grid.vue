@@ -19,6 +19,7 @@ import { mapState, Store } from "vuex";
 import { INode } from "~/utils/types/index";
 import { depthFirstSearch } from "~/utils/algorithms/DFS";
 import { breathFirstSearch } from "~/utils/algorithms/BFS";
+import { AStar } from "~/utils/algorithms/AStar";
 
 export default Vue.extend({
   name: "Grid",
@@ -45,7 +46,7 @@ export default Vue.extend({
     getVisitedNodes() {
       const deepClone = JSON.parse(JSON.stringify(this.nodes));
       // const visitedNodes = depthFirstSearch(deepClone);
-      const visitedNodes = breathFirstSearch(deepClone);
+      const visitedNodes = AStar(deepClone);
       console.log(
         "🚀 ~ file: Grid.vue ~ line 50 ~ visualize ~ depthFirstSearch(deepClone);",
         visitedNodes

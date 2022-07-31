@@ -46,6 +46,6 @@ export default {
     jit: true,
   },
   env: {
-    NODE_SIZE: 5,
+    NODE_SIZE: 15,
   },
 };

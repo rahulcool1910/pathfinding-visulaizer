@@ -8,4 +8,7 @@ export interface INode {
   posY: number;
   prev?: INode;
   toggleBlock: () => void;
+  gScore: number;
+  fScore: number;
+  hScore: number;
 }
