@@ -30,7 +30,9 @@ export const actions: ActionTree<RootState, RootState> = {
     const gridRowSize = parseInt(process.env.NODE_SIZE || "10"),
       gridColSize = parseInt(process.env.NODE_SIZE || "10");
     nodes[0][0].isStartNode = true;
+    nodes[0][0].isBlock = false;
     nodes[gridRowSize - 1][gridColSize - 1].isEndNode = true;
+    nodes[gridRowSize - 1][gridColSize - 1].isBlock = false;
     commit("setNodes", nodes);
   },
 };

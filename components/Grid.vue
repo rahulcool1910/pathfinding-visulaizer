@@ -14,10 +14,8 @@
 </template>
 
 <script lang="ts">
-import { thisTypeAnnotation } from "@babel/types";
 import Vue from "vue";
 import { mapState, Store } from "vuex";
-import { createNodes } from "~/utils/Nodes";
 import { INode } from "~/utils/types/index";
 import { depthFirstSearch } from "~/utils/algorithms/DFS";
 
