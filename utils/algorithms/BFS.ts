@@ -1,11 +1,12 @@
+import Queue from "../DataStructures/Queue";
 import { INode } from "../types";
 
-export const depthFirstSearch = (nodes: Array<Array<INode>>) => {
+export const breathFirstSearch = (nodes: Array<Array<INode>>) => {
   const startNode = getStops(nodes, true);
   const endNode = getStops(nodes);
   const visited: Array<INode> = [];
-  let gridRowSize = 10;
-  let gridColSize = 10;
+  let gridRowSize = 0;
+  let gridColSize = 0;
   if (process.env.NODE_SIZE) {
     gridRowSize = parseInt(process.env.NODE_SIZE);
     gridColSize = parseInt(process.env.NODE_SIZE);
@@ -43,25 +44,25 @@ export const depthFirstSearch = (nodes: Array<Array<INode>>) => {
     return neightbours;
   };
   let pathFound = false;
-  const visitNodes = (currNode: INode, delay: number) => {
-    console.log(
-      "🚀 ~ file: DFS.ts ~ line 47 ~ visitNodes ~ delay",
-      currNode.posX,
-      currNode.posY,
-      delay
-    );
-    if (currNode.isVisited || pathFound) return;
-    if (currNode.posX == endNode.posX && currNode.posY == endNode.posY) {
-      pathFound = true;
-      return;
-    }
-    currNode.isVisited = true;
-    currNode.delay = delay;
-    const neighbours = getNeightbours(currNode);
-    for (let neighbour of neighbours) {
-      if (!neighbour.prev) {
-        neighbour.prev = currNode;
-        visitNodes(neighbour, delay + 1);
+  const visitNodes = (currNode: INode) => {
+    let queue = new Queue();
+    queue.enqueue(currNode);
+    while (!queue.isEmpty()) {
+      const lastNode = queue.poll();
+      if (!lastNode) break;
+      if (lastNode.isVisited || pathFound) return;
+      if (lastNode.posX == endNode.posX && lastNode.posY == endNode.posY) {
+        pathFound = true;
+        return;
+      }
+      lastNode.isVisited = true;
+      const neighbours = getNeightbours(lastNode);
+      for (let neighbour of neighbours) {
+        if (!neighbour.prev) {
+          neighbour.prev = lastNode;
+          neighbour.delay = lastNode.delay + 1;
+          queue.enqueue(neighbour);
+        }
       }
     }
   };
@@ -75,7 +76,7 @@ export const depthFirstSearch = (nodes: Array<Array<INode>>) => {
       getPath(currEndNode.prev);
     }
   };
-  visitNodes(startNode, 0);
+  visitNodes(startNode);
   if (pathFound) {
     getPath(endNode);
     return visited;

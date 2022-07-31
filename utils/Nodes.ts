@@ -39,5 +39,9 @@ const constructNode = (
     toggleBlock: () => {
       (this as any).isBlock = !(this as any).isBlock;
     },
+    gScore: Infinity,
+    hScore: Infinity,
+    fScore: Infinity,
+    delay: 0,
   };
 };

@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="w-12 h-12 border border-1 border-black m-1"
-    :class="getNodeClass()"
-  ></div>
+  <div class="card w-12 h-12 border border-1 border-black m-1" :class="getNodeClass()"></div>
 </template>
 <script lang="ts">
 import Vue from "vue";
@@ -26,6 +23,7 @@ export default Vue.extend({
   methods: {
     getNodeClass() {
       let classes =
+        (this.typedNodeData.isVisited && "bg-blue-100") ||
         (this.typedNodeData.isEndNode && `bg-red-100`) ||
         (this.typedNodeData.isStartNode && "bg-green-100") ||
         (this.typedNodeData.isBlock && "bg-black");
@@ -36,4 +34,5 @@ export default Vue.extend({
   },
 });
 </script>
-<style lang="scss"></style>
+<style >
+</style>
