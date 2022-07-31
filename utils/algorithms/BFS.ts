@@ -50,7 +50,7 @@ export const breathFirstSearch = (nodes: Array<Array<INode>>) => {
     while (!queue.isEmpty()) {
       const lastNode = queue.poll();
       if (!lastNode) break;
-      if (lastNode.isVisited) return;
+      if (lastNode.isVisited || pathFound) return;
       if (lastNode.posX == endNode.posX && lastNode.posY == endNode.posY) {
         pathFound = true;
         return;
@@ -60,6 +60,7 @@ export const breathFirstSearch = (nodes: Array<Array<INode>>) => {
       for (let neighbour of neighbours) {
         if (!neighbour.prev) {
           neighbour.prev = lastNode;
+          neighbour.delay = lastNode.delay + 1;
           queue.enqueue(neighbour);
         }
       }

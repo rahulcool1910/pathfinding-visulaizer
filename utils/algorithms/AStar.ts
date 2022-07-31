@@ -94,7 +94,7 @@ export const AStar = (nodes: Array<Array<INode>>) => {
       pathFound = true;
       return;
     }
-
+    let delayCounter = 0;
     while (openSet.length != 0) {
       openSet = openSet.sort((a, b) => a.fScore - b.fScore);
       const lowestFScoreNode = openSet[0];
@@ -104,6 +104,8 @@ export const AStar = (nodes: Array<Array<INode>>) => {
       }
       openSet = openSet.filter((x) => x != lowestFScoreNode);
       lowestFScoreNode.isVisited = true;
+      lowestFScoreNode.delay = delayCounter;
+      delayCounter++;
       for (let neighbour of getNeightbours(lowestFScoreNode)) {
         const tentativeScore = lowestFScoreNode.gScore + 1;
         if (!openSet.some((x) => x == neighbour)) {

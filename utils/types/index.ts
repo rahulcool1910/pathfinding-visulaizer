@@ -11,4 +11,5 @@ export interface INode {
   gScore: number;
   fScore: number;
   hScore: number;
+  delay: number;
 }

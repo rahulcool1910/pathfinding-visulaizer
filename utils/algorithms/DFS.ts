@@ -43,18 +43,25 @@ export const depthFirstSearch = (nodes: Array<Array<INode>>) => {
     return neightbours;
   };
   let pathFound = false;
-  const visitNodes = (currNode: INode) => {
-    if (currNode.isVisited) return;
+  const visitNodes = (currNode: INode, delay: number) => {
+    console.log(
+      "🚀 ~ file: DFS.ts ~ line 47 ~ visitNodes ~ delay",
+      currNode.posX,
+      currNode.posY,
+      delay
+    );
+    if (currNode.isVisited || pathFound) return;
     if (currNode.posX == endNode.posX && currNode.posY == endNode.posY) {
       pathFound = true;
       return;
     }
     currNode.isVisited = true;
+    currNode.delay = delay;
     const neighbours = getNeightbours(currNode);
     for (let neighbour of neighbours) {
       if (!neighbour.prev) {
         neighbour.prev = currNode;
-        visitNodes(neighbour);
+        visitNodes(neighbour, delay + 1);
       }
     }
   };
@@ -68,7 +75,7 @@ export const depthFirstSearch = (nodes: Array<Array<INode>>) => {
       getPath(currEndNode.prev);
     }
   };
-  visitNodes(startNode);
+  visitNodes(startNode, 0);
   if (pathFound) {
     getPath(endNode);
     return visited;

@@ -42,5 +42,6 @@ const constructNode = (
     gScore: Infinity,
     hScore: Infinity,
     fScore: Infinity,
+    delay: 0,
   };
 };
